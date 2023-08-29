@@ -1,32 +1,3 @@
-/**
- *  Opens a category folder in a dropdown menu.
- * 
- * @param {string} clicked - The ID of the category folder element that is clicked and should be opened.
- * @param {string} notClicked - The ID of the category folder element that is not clicked and should be closed.
- * @param {string} visible - The ID of the content element that should be made visible.
- * @param {string} notVisible - The ID of the content element that should be hidden.
- */
-function openCategoryFolder(clicked, notClicked, visible, notVisible) {
-  document.getElementById(clicked).classList.add("dropdown-category-open");
-  document.getElementById(notClicked).classList.remove("dropdown-category-open");
-  document.getElementById(visible).classList.remove("d-none");
-  document.getElementById(notVisible).classList.add("d-none");
-  document.getElementById("initialsContainer").classList.add("d-none");
-}
-
-/**
- * Closes a category folder in a dropdown menu.
- *
- * @param {string} clicked - The ID of the category folder element that is clicked and should be closed.
- * @param {string} visible - The ID of the content element that should be hidden.
- * @param {string} notVisible - The ID of the content element that should be hidden.
- */
-function closeCategoryFolder(clicked, visible, notVisible) {
-  document.getElementById(clicked).classList.remove("dropdown-category-open");
-  document.getElementById(visible).classList.add("d-none");
-  document.getElementById(notVisible).classList.add("d-none");
-  document.getElementById("initialsContainer").classList.remove("d-none");
-}
 
 /**
  * Removes the "clearAddButtons" element's "d-none" class and adds the "ddArrow" element's "d-none" class.
@@ -91,19 +62,6 @@ function changeColor(img) {
   }
   if (img == "prioLowImg") {
     imgPath.src = `assets/img/prio_low_white.svg`;
-  }
-}
-
-/**
- * Gets the CSS class based on the status of the subtask at the specified index.
- * @param {number} i - The index of the subtask.
- * @returns {string} The CSS class to be applied.
- */
-function getClass(i) {
-  if (subtaskStatus[i] == true) {
-    return (setClass = "");
-  } else {
-    return (setClass = "d-none");
   }
 }
 
@@ -189,18 +147,6 @@ function resetImgOfPrioButtons() {
 }
 
 /**
- * Retrieves the priority button elements by their IDs.
- * @returns {Array<HTMLElement>} An array containing the high, medium, and low priority button elements.
- */
-function getIdOfPrioButtons() {
-  let highPrio = document.getElementById("prioHigh");
-  let midPrio = document.getElementById("prioMedium");
-  let lowPrio = document.getElementById("prioLow");
-
-  return [highPrio, midPrio, lowPrio];
-}
-
-/**
  * Generates a random color in hexadecimal format.
  * @returns {Promise<string>} A promise that resolves to a randomly generated color.
  */
@@ -218,35 +164,6 @@ async function generateRandomColor() {
   }
   return color;
 }
-
-/**
- * Applies the slide-in animation for the desktop view by modifying the classes of the specified elements.
- * @param {HTMLElement} greyBackground - The grey background element.
- * @param {HTMLElement} addTaskPopUp - The add task popup element.
- * @param {HTMLElement} profile - The profile element.
- * @param {HTMLElement} addTaskBtn - The add task button element.
- */
-function slideInAnimationDesktop(greyBackground, addTaskPopUp, profile, addTaskBtn) {
-  greyBackground.classList.add("d-none");
-  addTaskPopUp.classList.remove("slide-out");
-  addTaskPopUp.classList.add("slide-in");
-  addTaskPopUp.classList.remove("d-none");
-  profile.classList.add("d-none");
-  addTaskBtn.classList.remove("d-none");
-}
-
-/**
- * Applies the slide-in animation for the responsive view by modifying the classes of the specified elements.
- * @param {HTMLElement} greyBackground - The grey background element.
- * @param {HTMLElement} addTaskPopUp - The add task popup element.
- */
-function slideInAnimationResponsive(greyBackground, addTaskPopUp) {
-  greyBackground.classList.remove("d-none");
-  addTaskPopUp.classList.remove("slide-out");
-  addTaskPopUp.classList.add("slide-in");
-  addTaskPopUp.classList.remove("d-none");
-}
-
 
 /**
  * Opens the add task container and applies the appropriate slide-in animation based on the window width.
@@ -311,22 +228,6 @@ function selectedColor(r, g, b, index) {
 }
 
 /**
- * Generates random colors for the color picker and assigns them to color circles.
- * Uses the `generateRandomColor` function to generate each color asynchronously.
- * @returns {Promise<void>}
- */
-async function getRandomColor() {
-  categoryInputFiled = document.getElementById("categoryInput");
-  for (let index = 0; index < 6; index++) {
-    generatedColor = await generateRandomColor();
-    onclickColor = `selectedColor(#${generatedColor})`;
-    colorCircle = document.getElementById("colorPickCircle" + index);
-    colorCircle.style = `background-color: ${generatedColor}`;
-    setOnclickForColorpicker(colorCircle, index);
-  }
-}
-
-/**
  * Adds the "selection-point" class to the specified element to indicate selection.
  * @param {string} selected - The ID of the element to add the "selection-point" class to.
  */
@@ -363,32 +264,6 @@ function deselectContactforTask(collectedContact, selectedContact, colorOfContac
   manageInitials(selectedContact, colorOfContact);
   document.getElementById(selected).classList.remove("selection-point");
   switchContactIcons();
-}
-
-/**
- * This function is used to change the height of a div and display its contents
- * if the height of a div was previously changed and you click on another,
- * the previous div is reduced again and the content is hidden.
- * The height of the clicked div is increased and the content is displayed
- *
- * @param {*} clicked - This is the id where a classlist should be changed
- * @param {*} notClicked - This is the id where a classlist should be changed
- * @param {*} visible - This is the id where the classlist "d-none" will removed
- * @param {*} notVisible - This is the id where the classlist "d-none" will added
- */
-
-function pullDownMenu(clicked, notClicked, visible, notVisible) {
-  let openMenu = document.getElementById(clicked).classList;
-  if (openMenu == "dropdown-category-closed") {
-    openCategoryFolder(clicked, notClicked, visible, notVisible);
-  } else {
-    closeCategoryFolder(clicked, visible, notVisible);
-  }
-  if (clicked == "assingedTo") {
-    switchContactIcons();
-    renderInitials();
-    initialsRenderd = false;
-  }
 }
 
 /**

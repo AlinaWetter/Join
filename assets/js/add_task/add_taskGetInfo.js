@@ -154,3 +154,44 @@ function pushSubtask() {
   }
 }
 
+/**
+ * Gets the CSS class based on the status of the subtask at the specified index.
+ * @param {number} i - The index of the subtask.
+ * @returns {string} The CSS class to be applied.
+ */
+function getClass(i) {
+  if (subtaskStatus[i] == true) {
+    return (setClass = "");
+  } else {
+    return (setClass = "d-none");
+  }
+}
+
+/**
+ * Retrieves the priority button elements by their IDs.
+ * @returns {Array<HTMLElement>} An array containing the high, medium, and low priority button elements.
+ */
+function getIdOfPrioButtons() {
+  let highPrio = document.getElementById("prioHigh");
+  let midPrio = document.getElementById("prioMedium");
+  let lowPrio = document.getElementById("prioLow");
+
+  return [highPrio, midPrio, lowPrio];
+}
+
+/**
+ * Generates random colors for the color picker and assigns them to color circles.
+ * Uses the `generateRandomColor` function to generate each color asynchronously.
+ * @returns {Promise<void>}
+ */
+async function getRandomColor() {
+  categoryInputFiled = document.getElementById("categoryInput");
+  for (let index = 0; index < 6; index++) {
+    generatedColor = await generateRandomColor();
+    onclickColor = `selectedColor(#${generatedColor})`;
+    colorCircle = document.getElementById("colorPickCircle" + index);
+    colorCircle.style = `background-color: ${generatedColor}`;
+    setOnclickForColorpicker(colorCircle, index);
+  }
+}
+
